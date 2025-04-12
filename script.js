@@ -1,27 +1,28 @@
+// Elenco delle immagini da mostrare
+const imageNames = [
+  'promo1.jpg',
+  'promo2.jpg',
+  'promo3.jpg',
+  'promo4.jpg', // Aggiungi altre immagini se necessario
+];
+
 // URL della cartella immagini su GitHub
 const imagesFolderURL = "https://raw.githubusercontent.com/tuonome/PromoRestore/main/images/";
 
 // Funzione per creare dinamicamente le immagini nello slideshow
-async function loadImages() {
-  const response = await fetch('https://api.github.com/repos/tuonome/PromoRestore/contents/images');
-  const data = await response.json();
-  
-  if (Array.isArray(data)) {
-    const slideshowContainer = document.getElementById('slideshow');
-    
-    data.forEach(item => {
-      if (item.type === 'file') {
-        // Crea un elemento immagine per ogni file trovato
-        const img = document.createElement('img');
-        img.src = imagesFolderURL + item.name;
-        img.classList.add('slide');
-        slideshowContainer.appendChild(img);
-      }
-    });
+function loadImages() {
+  const slideshowContainer = document.getElementById('slideshow');
 
-    // Avvia lo slideshow
-    startSlideshow();
-  }
+  // Crea un'immagine per ogni nome nella lista
+  imageNames.forEach(imageName => {
+    const img = document.createElement('img');
+    img.src = imagesFolderURL + imageName;
+    img.classList.add('slide');
+    slideshowContainer.appendChild(img);
+  });
+
+  // Avvia lo slideshow
+  startSlideshow();
 }
 
 // Funzione per gestire lo slideshow
